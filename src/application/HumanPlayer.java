@@ -40,6 +40,13 @@ public class HumanPlayer implements Player{
 		
 	}
 
+	/**
+	 * Method used to take user input and attack enemy ships
+	 * @param enemyShips
+	 * @param enemyShipsList
+	 * @param rowIdxMap
+	 * @param colIdxMap
+	 */
 	public void bombard(char[][] enemyShips, HashMap<Character, Ship> enemyShipsList, 
 			HashMap<Character, Integer> rowIdxMap, HashMap<Integer, Integer> colIdxMap) {
 		//TODO: check for out of bound cases so user can re-enter a move
@@ -67,6 +74,4 @@ public class HumanPlayer implements Player{
 			enemyShips[rowIdx][colIdx] = 'H';
 		}
 	}
-	
-	
 }

@@ -38,6 +38,11 @@ public class Game {
 				break;
 			}
 		}
+		if(playerWon) {
+			System.out.println("You won!!");
+		} else {
+			System.out.println("You lost!!");
+		}
 	}
 	
 	/**
