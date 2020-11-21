@@ -1,8 +1,9 @@
 package application;
 import java.util.HashMap;
+import java.util.Scanner; 
 
 public class HumanPlayer implements Player{
-
+	private Scanner input = new Scanner(System.in);
 	// TODO: Allow player to select where they want their ships
 	@Override
 	public void generateShips(char[][] playerBoard, HashMap<Character, Ship> playerShipsList) {
@@ -41,7 +42,9 @@ public class HumanPlayer implements Player{
 
 	@Override
 	public void bombard(char[][] enemyShips, HashMap<Character, Ship> enemyShipsList) {
-		// TODO Auto-generated method stub
+		System.out.println("Enter the row you want to attack: ");
 		
 	}
+	
+	
 }
