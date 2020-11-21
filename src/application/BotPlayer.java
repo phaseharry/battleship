@@ -35,11 +35,7 @@ public class BotPlayer implements Player{
 		}
 	}
 
-	@Override
-	public void bombard(char playerShips[][], HashMap<Character, Ship> playerShipsList) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void bombard(char playerShips[][], HashMap<Character, Ship> playerShipsList) {}
 	
 	/**
 	 * helper method that returns a random row or random column to place ships in

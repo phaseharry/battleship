@@ -50,14 +50,14 @@ public abstract class Ship {
 	
 	/**
 	 * Abstract method that returns the name of the ship class that inherits this
-	 * @return
+	 * @return name
 	 */
 	public abstract String getName();
 	
 	/**
 	 * Abstract method that returns the unique ship class identifier that will be used 
 	 * on the board
-	 * @return 
+	 * @return id
 	 */
 	public abstract char getShipID();
 }

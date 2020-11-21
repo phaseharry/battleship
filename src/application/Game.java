@@ -23,21 +23,21 @@ public class Game {
 		player = new HumanPlayer();
 		bot.generateShips(aiShips, aiShipsList);
 		player.generateShips(playerShips, playerShipsList);
-//		boolean playerWon = false, botWon = false;
-//		while(!playerWon && !botWon) {
-//			printPlayerShips();
-//			printAiShips();
-//			player.bombard(aiShips, aiShipsList);
-//			if(shipsDestroyed(aiShipsList)) {
-//				playerWon = true;
-//				break;
-//			}
-//			bot.bombard(playerShips, playerShipsList);
-//			if(shipsDestroyed(playerShipsList)) {
-//				botWon = true;
-//				break;
-//			}
-//		}
+		boolean playerWon = false, botWon = false;
+		while(!playerWon && !botWon) {
+			printPlayerShips();
+			printAiShips();
+			player.bombard(aiShips, aiShipsList, rowIdxMap, colIdxMap);
+			if(shipsDestroyed(aiShipsList)) {
+				playerWon = true;
+				break;
+			}
+			bot.bombard(playerShips, playerShipsList);
+			if(shipsDestroyed(playerShipsList)) {
+				botWon = true;
+				break;
+			}
+		}
 	}
 	
 	/**
@@ -156,6 +156,7 @@ public class Game {
 		System.out.print("\n");
 		for(int r = 0; r < row; r++) {
 			System.out.print((char)charCode + " ");
+			charCode++;
 			for(int c = 0; c < col; c++) {
 				System.out.print(aiShips[r][c] + " ");
 			}
