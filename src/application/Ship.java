@@ -45,6 +45,7 @@ public abstract class Ship {
 	 */
 	public void takeHit() {
 		hp--;
+		if(hp <= 0) destroyed = true;
 	}
 	
 	/**

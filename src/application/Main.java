@@ -24,7 +24,6 @@ public class Main extends Application {
 		Game game1 = new Game();
 		game1.printPlayerShips();
 		game1.printAiShips();
-		launch(args);
-		launch(args);
+		//launch(args);
 	}
 }

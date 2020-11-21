@@ -6,8 +6,11 @@ public class Game {
 	private final char miss = 'M', hit = 'H', emptyWaters = 'E';
 	private char playerShips[][], aiShips[][];
 	private HashMap<Character, Ship> aiShipsList, playerShipsList;
+	private HashMap<Character, Integer> rowIdxMap;
+	private HashMap<Integer, Integer> colIdxMap;
 	
 	public Game() {
+		initInputToIdx();
 		playerShips = initBoard();
 		aiShips = initBoard();
 		aiShipsList = new HashMap<Character, Ship>();
@@ -18,6 +21,34 @@ public class Game {
 		HumanPlayer player = new HumanPlayer();
 		bot.generateShips(aiShips, aiShipsList);
 		player.generateShips(playerShips, playerShipsList);
+	}
+	
+	/**
+	 * Helper method just to determine if either the player's or the bot's ships are all destroyed.
+	 * Used to determine when the game is over and determine the winner of the game.
+	 * @return true if all ships are destroyed, false otherwise
+	 */
+	private boolean shipsDestroyed(HashMap<Character, Ship> squadron) {
+		boolean allDestroyed = true;
+		for(Ship currentShip : squadron.values()) {
+			if(currentShip.isDestroyed() == false) allDestroyed = false;
+		}
+		return allDestroyed;
+	}
+	
+	/**
+	 * Maps traditional Battleship board game inputs to row and col indices
+	 * Maps the A - J to row index of 0 - 9 (row)
+	 * Maps 1 - 10 to 0 - 9 (col)
+	 */
+	private void initInputToIdx() {
+		int startChar = 65, endChar = 74, rowIdx = 0, colIdx = 0;
+		for(int row = startChar; row <= endChar; row++) {
+			rowIdxMap.put((char)row, rowIdx++);
+		}
+		for(int col = 1; col <= 10; col++) {
+			colIdxMap.put(col, colIdx++);
+		}
 	}
 	
 	/**
