@@ -29,16 +29,18 @@ public class Main extends Application {
 		/*----------Information Area----------*/
 		Label yourShips = new Label("Your Ships");
 		
-		RadioButton shipFive = new RadioButton();
-		RadioButton shipFour = new RadioButton();
-		RadioButton shipThree = new RadioButton();
-		RadioButton shipTwo = new RadioButton();
+		RadioButton carrier = new RadioButton("carrier x5");
+		RadioButton battleship = new RadioButton("battleship x4");
+		RadioButton destroyer = new RadioButton("destroyer x3");
+		RadioButton submarine = new RadioButton("submarine x3");
+		RadioButton patrolboat = new RadioButton("patrolboat x2");
 		
 		ToggleGroup ship = new ToggleGroup();
-		shipFive.setToggleGroup(ship);
-		shipFour.setToggleGroup(ship);
-		shipThree.setToggleGroup(ship);
-		shipTwo.setToggleGroup(ship);
+		carrier.setToggleGroup(ship);
+		battleship.setToggleGroup(ship);
+		destroyer.setToggleGroup(ship);
+		submarine.setToggleGroup(ship);
+		patrolboat.setToggleGroup(ship);
 		
 		
 		Label placement = new Label("Placement");
@@ -57,7 +59,7 @@ public class Main extends Application {
 		Label logContent = new Label("");
 		
 		//VBox for info
-		VBox vInfo = new VBox(yourShips, shipFive, shipFour, shipThree, shipTwo, placement, horizontal, vertical, placeShip, attack, log, logContent);
+		VBox vInfo = new VBox(yourShips, carrier, battleship, destroyer, submarine, patrolboat, placement, horizontal, vertical, placeShip, attack, log, logContent);
 		vInfo.setStyle("-fx-background-color: #A9A9A9");
 		
 		
@@ -75,8 +77,14 @@ public class Main extends Application {
 			}
 		}
 		
+		Label ucarrier = new Label("carrier: ");
+		Label ubattleshipHP = new Label("battleship: ");
+		Label udestroyerHP = new Label("destroyer: ");
+		Label usubmarineHP = new Label("submarine: ");
+		Label upatrolboatHP = new Label("patrolboat: ");
+		
 		//VBox for user board
-		VBox vUser = new VBox(userBoard, uBoard);
+		VBox vUser = new VBox(userBoard, uBoard, ucarrier, ubattleshipHP, udestroyerHP, usubmarineHP, upatrolboatHP);
 		
 		
 		
@@ -93,8 +101,14 @@ public class Main extends Application {
 			}
 		}
 		
+		Label ccarrierHP = new Label("carrier: ");
+		Label cbattleshipHP = new Label("battleship: ");
+		Label cdestroyerHP = new Label("destroyer: ");
+		Label csubmarineHP = new Label("submarine: ");
+		Label cpatrolboatHP = new Label("patrolboat: ");
+		
 		//VBox for computer board
-		VBox vComputer = new VBox(computerBoard, cBoard);			
+		VBox vComputer = new VBox(computerBoard, cBoard, ccarrierHP, cbattleshipHP, cdestroyerHP, csubmarineHP, cpatrolboatHP);			
 		
 		//HBox for board area
 		HBox hBoard = new HBox(20, vUser, vComputer);
@@ -110,7 +124,7 @@ public class Main extends Application {
 		
 		
 		//create a scene and display it
-		Scene scene = new Scene(hbox, 600, 400);
+		Scene scene = new Scene(hbox, 700, 400);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -145,6 +159,17 @@ public class Main extends Application {
 				//attack
 			} else {
 				//missed
+			}
+		}
+	}*/
+	
+	/*class placeClickHandler implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent event) {
+			if (/*horizontal is selected) {
+				
+			} else {
+				
 			}
 		}
 	}*/
