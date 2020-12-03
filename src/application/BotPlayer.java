@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.ArrayList;
 
 public class BotPlayer implements Player{
+	
 	public void generateShips(char botShips[][], HashMap<Character, Ship> botShipsList) {
 		Battleship b1 = (Battleship) botShipsList.get('B');
 		Carrier c1 = (Carrier) botShipsList.get('C');
@@ -42,18 +43,37 @@ public class BotPlayer implements Player{
 	 * @param playerShipsList
 	 */
 	public void bombard(char playerShips[][], HashMap<Character, Ship> playerShipsList) {
-		// 1) get a random attack move from possible attack moves
-		// 2) if the attack was a hit & a ship was not destroyed, then we will store that position 
-		// 3) next time we will do a attack a spot around that prev spot. if it was a hit, then it will be saved 
-		// and we attack around that spot.
-		// 4) once it is destroyed, we will call getPossibleMoves again and pick a random move around it
+		Integer[] coordinates = getRandomMove(playerShips);
+		int row = coordinates[0], col = coordinates[1];
+		// if the attacked spot is empty, mark it as a miss
+		// else, decrement the ships hp and mark it as 'H'
+		if(playerShips[row][col] == 'E') {
+			playerShips[row][col] = 'M';
+		} else {
+			char shipType = playerShips[row][col];
+			playerShipsList.get(shipType).takeHit();
+			playerShips[row][col] = 'H';
+		}
 	}
 	
 	/**
-	 * Used to generate possible moves by checking for all spots that's has not been attacked before 
-	 * either M (miss) or H (hit)
+	 * Used to generate a random attack move
 	 * @param playerShips
 	 * @return
+	 */
+	public Integer[] getRandomMove(char playerShips[][]) {
+		ArrayList<Integer[]> possibleMoves = getPossibleMoves(playerShips);
+		int maxIdx = possibleMoves.size() - 1;
+		int range = maxIdx + 1; 
+		int idx = (int)(Math.random() * range);
+		return possibleMoves.get(idx);
+	}
+	
+	/**
+	 * Helper method used to generate possible moves by checking for all spots that's has not been attacked before 
+	 * either M (miss) or H (hit)
+	 * @param playerShips
+	 * @return an array list with arrays as element [row, col] for the attack
 	 */
 	public ArrayList<Integer[]> getPossibleMoves(char playerShips[][]){
 		ArrayList<Integer[]> possibleMoves = new ArrayList<Integer[]>();
@@ -69,7 +89,6 @@ public class BotPlayer implements Player{
 		}
 		return possibleMoves;
 	}
-	
 	
 	
 	/**
