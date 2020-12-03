@@ -26,6 +26,13 @@ public class Game {
 	}
 	
 	/**
+	 * returns the player's board
+	 * @return
+	 */
+	public char[][] playerBoard(){
+		return playerShips;
+	}
+	/**
 	 * Initiates a turn. User will input the row or col they want to attack & then ai will randomly attack a spot on the player's board
 	 * @param row
 	 * @param col
