@@ -18,10 +18,7 @@ public class Main extends Application {
 		try {
 			//title for window
 			primaryStage.setTitle("Battleship");
-			
-			
-			
-			
+		
 			/*----------Information Area----------*/
 			Label yourShips = new Label("Your Ships");
 			
@@ -54,8 +51,6 @@ public class Main extends Application {
 			VBox vInfo = new VBox(yourShips, shipFive, shipFour, shipThree, shipTwo, placement, horizontal, vertical, placeShip, attack, log);
 			vInfo.setStyle("-fx-background-color: #A9A9A9");
 			
-			
-			
 			/*----------Board Area----------*/
 			//user board
 			Label userBoard = new Label("User Board");
@@ -72,9 +67,6 @@ public class Main extends Application {
 			
 			//VBox for user board
 			VBox vUser = new VBox(userBoard, uBoard);
-			
-			
-			
 			
 			//computer board
 			Label computerBoard = new Label("Computer Board");		
@@ -93,14 +85,8 @@ public class Main extends Application {
 			HBox hBoard = new HBox(20, vUser, vComputer);
 			hBoard.setId("hBoard");
 			
-			
-			
-			
 			//HBox that contains everything
 			HBox hbox = new HBox(10, vInfo, hBoard);
-			
-			
-			
 			
 			//create a scene
 			Scene scene = new Scene(hbox, 600, 400);
@@ -117,10 +103,6 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
-		// launch(args);
-		Game game1 = new Game();
-		game1.printPlayerShips();
-		game1.printAiShips();
-		game1.printRowAndColMapIdx();
+		launch(args);
 	}
 }

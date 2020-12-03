@@ -3,7 +3,6 @@ import java.util.HashMap;
 import java.util.Scanner; 
 
 public class HumanPlayer implements Player{
-	private Scanner input = new Scanner(System.in);
 	// TODO: Allow player to select where they want their ships
 	@Override
 	public void generateShips(char[][] playerBoard, HashMap<Character, Ship> playerShipsList) {
@@ -36,8 +35,7 @@ public class HumanPlayer implements Player{
 		// putting s1 (size 3) on row 2 and col 7 -> 9
 		for(int c = 7; c < 7 + s1.getSize(); c++) {
 			playerBoard[2][c] = s1.getShipID();
-		}
-		
+		}	
 	}
 
 	/**
@@ -47,31 +45,23 @@ public class HumanPlayer implements Player{
 	 * @param rowIdxMap
 	 * @param colIdxMap
 	 */
-	public void bombard(char[][] enemyShips, HashMap<Character, Ship> enemyShipsList, 
-			HashMap<Character, Integer> rowIdxMap, HashMap<Integer, Integer> colIdxMap) {
-		//TODO: check for out of bound cases so user can re-enter a move
-		System.out.println("Enter the row you want to attack: ");
-		char row = input.next().charAt(0);
-		System.out.println("\nEnter the column you want to attack: ");
-		int column = input.nextInt();
-		// convert user input into a board index
-		int rowIdx = rowIdxMap.get(row), colIdx = colIdxMap.get(column);
+	public void bombard(char[][] enemyShips, HashMap<Character, Ship> enemyShipsList, int row, int col) {
 		/* 
 		 * Cases to check:
 		 * 1) empty waters, just change the board from 'E' to 'M'
 		 * 2) hit a ship, first get the char and change its hp from its obj and then mark the spot as hit
 		 * 3) if a cell is either already 'M' (missed) or 'H' (hit), let user redo move
 		 */
-		if(enemyShips[rowIdx][colIdx] == 'E') {
-			enemyShips[rowIdx][colIdx] = 'M';
-		} else if(enemyShips[rowIdx][colIdx] == 'M' || enemyShips[rowIdx][colIdx] == 'H') {
+		if(enemyShips[row][col] == 'E') {
+			enemyShips[row][col] = 'M';
+		} else if(enemyShips[row][col] == 'M' || enemyShips[row][col] == 'H') {
 			// REDO move
 		} else {
-			char shipId = enemyShips[rowIdx][colIdx];
+			char shipId = enemyShips[row][col];
 			Ship shipHit = enemyShipsList.get(shipId);
 			shipHit.takeHit();
 			// TODO: if ship is destroyed, notify user?
-			enemyShips[rowIdx][colIdx] = 'H';
+			enemyShips[row][col] = 'H';
 		}
 	}
 }

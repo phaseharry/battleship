@@ -10,9 +10,8 @@ public class Game {
 	private HashMap<Integer, Integer> colIdxMap;
 	private HumanPlayer player;
 	private BotPlayer bot;
-	
+	private boolean gameOver;
 	public Game() {
-		initInputToIdx();
 		playerShips = initBoard();
 		aiShips = initBoard();
 		aiShipsList = new HashMap<Character, Ship>();
@@ -23,26 +22,43 @@ public class Game {
 		player = new HumanPlayer();
 		bot.generateShips(aiShips, aiShipsList);
 		player.generateShips(playerShips, playerShipsList);
-		boolean playerWon = false, botWon = false;
-		while(!playerWon && !botWon) {
-			printPlayerShips();
-			printAiShips();
-			player.bombard(aiShips, aiShipsList, rowIdxMap, colIdxMap);
-			if(shipsDestroyed(aiShipsList)) {
-				playerWon = true;
-				break;
-			}
-			bot.bombard(playerShips, playerShipsList);
-			if(shipsDestroyed(playerShipsList)) {
-				botWon = true;
-				break;
-			}
+		gameOver = false;
+	}
+	
+	/**
+	 * Initiates a turn. User will input the row or col they want to attack & then ai will randomly attack a spot on the player's board
+	 * @param row
+	 * @param col
+	 */
+	public void runIteration(int row, int col) {
+		player.bombard(aiShips, aiShipsList, row, col);
+		if(shipsDestroyed(aiShipsList)) {
+			gameOver = true;
+			return;
 		}
-		if(playerWon) {
-			System.out.println("You won!!");
-		} else {
-			System.out.println("You lost!!");
+		bot.bombard(playerShips, playerShipsList);
+		if(shipsDestroyed(playerShipsList)) {
+			gameOver = true;
+			return;
 		}
+	}
+	
+	/**
+	 * Used to determine if the game is over or not
+	 * @return gameOver
+	 */
+	public boolean gameOver() {
+		return gameOver;
+	}
+	
+	/**
+	 * Used to determibe if the player one. Used together win the gameOver function.
+	 * If gameOver() && playerWon() is true then player won. If gameOver() is true but playerWon() is false then the AI won
+	 * @return
+	 */
+	public boolean playerWon() {
+		if(shipsDestroyed(aiShipsList)) return true;
+		return false;
 	}
 	
 	/**
@@ -56,28 +72,6 @@ public class Game {
 			if(currentShip.isDestroyed() == false) allDestroyed = false;
 		}
 		return allDestroyed;
-	}
-	
-	/**
-	 * Maps traditional Battleship board game inputs to row and col indices
-	 * Maps the A - J to row index of 0 - 9 (row)
-	 * Maps 1 - 10 to 0 - 9 (col)
-	 */
-	private void initInputToIdx() {
-		HashMap<Character, Integer> rowMap = new HashMap<Character, Integer>();
-		HashMap<Integer, Integer> colMap = new HashMap<Integer, Integer>();
-		char currentChar = 'A';
-		int colIdx = 0;
-		for(int row = 0; row < 10; row++) {
-			rowMap.put(currentChar, row);
-			currentChar++;
-		}
-		for(int col = 1; col <= 10; col++) {
-			colMap.put(col, colIdx);
-			colIdx++;
-		}
-		rowIdxMap = rowMap;
-		colIdxMap = colMap;
 	}
 	
 	/**
